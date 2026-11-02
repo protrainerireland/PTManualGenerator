@@ -1,0 +1,370 @@
+/*
+ * PROFESSIONAL TRAINING HOUSE STYLE - this is the file to edit.
+ * =============================================================
+ *
+ * Every manual built by build_deliverables.py is styled from here: change a
+ * value, rebuild, and all of them change together. The other two stylesheets
+ * in this folder (markdown.css, markdown-pdf.css) are vendored copies of the
+ * VS Code "Markdown PDF" extension's own and are best left alone - this one
+ * loads last and wins.
+ *
+ * Nearly everything is a variable in the :root block below, so in normal use
+ * you only ever edit values between the first "--" and the closing "}". The
+ * rules underneath apply them and rarely need touching.
+ *
+ * Two things here are read by the printer (tools/print_pdf.js) rather than by
+ * the browser, because Chrome draws the page margins and the footer itself:
+ * the --page-* sizes and the --footer-* settings. They still live here so
+ * that the whole look of a manual is described in one file.
+ *
+ * The values shipped below reproduce the existing manuals exactly. Change one
+ * and the documents repaginate, so re-check the page count afterwards - and
+ * for the notes, the contents page renumbers itself on the next build.
+ */
+
+:root {
+  /* ---- Paper and margins (read by tools/print_pdf.js) -----------------
+     Any CSS length works: cm, mm, in, px. The foot is deeper than the
+     sides because the page number is drawn inside that margin. */
+  --page-width: 21cm;        /* A4 portrait */
+  --page-height: 29.7cm;
+  --page-margin-top: 1.5cm;
+  --page-margin-right: 2cm;
+  --page-margin-bottom: 1.3cm;
+  --page-margin-left: 2cm;
+
+  /* ---- Page-number footer (read by tools/print_pdf.js) ----------------
+     {page} and {pages} are substituted. Set --footer-text to "" for no
+     footer at all. */
+  --footer-text: "Page {page} of {pages}";
+  --footer-font: "Segoe UI", system-ui, sans-serif;
+  --footer-font-size: 10px;
+  --footer-colour: #666666;
+
+  /* ---- Body text ------------------------------------------------------ */
+  --body-font: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+    "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+  --body-size: 15px;
+  /* A ratio, not a length, so the leading grows with the type. 1.57 is the
+     22px/14px the documents were set in before. */
+  --body-line-height: 1.57;
+  --body-colour: #000000;
+  /* Indent inside the paper margin, on top of --page-margin-left/right. */
+  --body-side-padding: 12px;
+
+  /* ---- Headings -------------------------------------------------------
+     Each heading has its own gap above and below, in ems of its own size.
+     --h2-space-above is the one that separates one numbered section from
+     the end of the last, so that is the knob for "more air between
+     sections". */
+  --heading-colour: var(--body-colour);
+  --heading-weight: normal;
+  --h1-size: 2em;
+  --h1-space-above: 0.67em;
+  --h1-space-below: 0.67em;
+  --h1-rule: 1px solid currentColor;   /* the line under a top-level title */
+  --h2-size: 1.5em;
+  --h2-space-above: 2em;
+  --h2-space-below: 0.83em;
+  /* "always" starts every numbered section on a fresh page; "auto" lets
+     them run on, in which case --h2-space-above is what separates them. */
+  --section-page-break: always;
+  /* "avoid" stops a sub-heading being left stranded at the foot of a page
+     with its text overleaf; "auto" allows it. */
+  --keep-headings-with-text: avoid;
+  --h3-size: 1.17em;
+  --h3-space-above: 1em;
+  --h3-space-below: 1em;
+
+  /* ---- Cover page logos -----------------------------------------------
+     The Professional Training logo is 556px wide in the file, and is drawn
+     at that size. The client's logo, if there is one, is drawn at a share
+     of that width - never its own natural size, so that a client supplying
+     a bigger or smaller file changes nothing. Heights follow from the
+     widths, so neither logo is ever stretched or squashed. */
+  --cover-logo-width: 556px;
+  --client-logo-scale: 0.5;
+
+  /* The "Published date:" line at the foot of the cover. The build fills in
+     the date; this is how loudly it says it. */
+  --published-size: 0.85em;
+  --published-colour: #666666;
+
+  /* ---- Links ---------------------------------------------------------- */
+  --link-colour: #006ab1;
+
+  /* ---- Tables --------------------------------------------------------- */
+  --table-border: 1px solid currentColor;
+  --table-head-background: transparent;
+  --table-head-weight: bold;
+  --table-cell-padding: 5px 10px;
+
+  /* ---- Quotes, code and rules ----------------------------------------- */
+  --quote-background: rgba(127, 127, 127, 0.1);
+  --quote-border: 5px solid rgba(0, 122, 204, 0.5);
+  --code-background: #f8f8f8;
+  --code-border: 1px solid #cccccc;
+  --inline-code-colour: #c9ae75;
+  /* markdown-pdf.css pins code at 14px, which would leave the prompts and
+     formulas behind when the body text changes size. */
+  --code-size: var(--body-size);
+  --code-line-height: 1.36;
+  /* "avoid" keeps a fenced prompt or formula block whole, moving it to the
+     next page rather than splitting it. A block too tall for one page is
+     split anyway - the browser treats this as a preference, not a promise.
+     "auto" lets them break wherever they fall. Images are covered too, and
+     are never split in practice whatever this says. */
+  --keep-blocks-together: avoid;
+  /* "avoid" keeps a screenshot on the same page as the sentence that
+     introduces it, rather than letting the page turn between them. The
+     cost is the white space left behind when the pair move together. */
+  --keep-images-with-text: avoid;
+  --rule-colour: currentColor;
+
+  /* ---- Contents page --------------------------------------------------
+     Only documents carrying the <!-- toc --> marker have one. */
+  --toc-size: 1.05em;
+  --toc-row-space: 0.55em;
+  --toc-number-width: 2em;
+  --toc-leader: 1px dotted #999999;
+}
+
+/* Paper size. The margins are not set here on purpose: Chrome draws the
+   footer inside them, so the printer owns them (see --page-margin-* above).
+   A margin in this rule would override the printer's and clip the footer. */
+@page {
+  size: var(--page-width) var(--page-height);
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--body-size);
+  line-height: var(--body-line-height);
+  color: var(--body-colour);
+  padding: 0 var(--body-side-padding);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-colour);
+  font-weight: var(--heading-weight);
+}
+
+h1 {
+  font-size: var(--h1-size);
+  margin: var(--h1-space-above) 0 var(--h1-space-below);
+  border-bottom: var(--h1-rule);
+}
+
+h2 {
+  font-size: var(--h2-size);
+  margin: var(--h2-space-above) 0 var(--h2-space-below);
+  page-break-before: var(--section-page-break);
+}
+
+/* No break before the first section of a document: it would leave the title
+   page, or the page the title shares with the introduction, hanging. */
+h1 + h2,
+h1 + p + h2 {
+  page-break-before: auto;
+}
+
+/* A heading at the very foot of a page, its text overleaf, reads as a
+   mistake, so a heading is carried over to join it. Like the rule for
+   fenced blocks, this is a preference the browser drops when it cannot be
+   honoured. */
+h2,
+h3,
+h4,
+h5,
+h6 {
+  page-break-after: var(--keep-headings-with-text);
+  break-after: var(--keep-headings-with-text);
+}
+
+h3 {
+  font-size: var(--h3-size);
+  margin: var(--h3-space-above) 0 var(--h3-space-below);
+}
+
+a {
+  color: var(--link-colour);
+}
+
+hr {
+  border-bottom-color: var(--rule-colour);
+}
+
+table > thead > tr > th {
+  background: var(--table-head-background);
+  font-weight: var(--table-head-weight);
+  border-bottom: var(--table-border);
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+  padding: var(--table-cell-padding);
+}
+
+table > tbody > tr + tr > td {
+  border-top: var(--table-border);
+}
+
+/* Long formulas in table cells are the one thing that can push a document
+   wider than its column - and Chrome's answer to an overflowing page is to
+   shrink the whole document to fit, silently. The notes printed at about
+   two-thirds size for exactly this reason: one table of SUMPRODUCT and
+   SORTBY formulas.
+
+   So the licence to break mid-word is given to code alone, never to prose:
+   a formula has no spaces to break at, while a sentence does, and a table
+   of plain English should wrap the way English wraps. "anywhere" rather
+   than "break-word" because only "anywhere" reduces the cell's minimum
+   width, which is what the table measures itself by. */
+th code,
+td code {
+  overflow-wrap: anywhere;
+}
+
+th,
+td {
+  overflow-wrap: break-word; /* long words give way, but only as a last resort */
+}
+
+table {
+  max-width: 100%;
+}
+
+blockquote {
+  background: var(--quote-background);
+  border-left: var(--quote-border);
+}
+
+pre {
+  background-color: var(--code-background);
+  border: var(--code-border);
+}
+
+pre,
+pre code {
+  font-size: var(--code-size);
+  line-height: var(--code-line-height);
+}
+
+/* Prompts and formulas read as one thing, so they are kept on one page.
+   Images go with them: Chrome moves a whole screenshot down rather than
+   cutting it, and this says so rather than relying on it. A Markdown image
+   sits alone in its own paragraph, which is the element that has to carry
+   the rule. */
+pre,
+img,
+p:has(> img) {
+  page-break-inside: var(--keep-blocks-together);
+  break-inside: var(--keep-blocks-together);
+}
+
+/* A screenshot is no use on the far side of the page turn from the step it
+   illustrates, so the pair move together. */
+p:has(> img) {
+  page-break-before: var(--keep-images-with-text);
+  break-before: var(--keep-images-with-text);
+}
+
+:not(pre):not(.hljs) > code {
+  color: var(--inline-code-colour);
+}
+
+/* The cover page sets its own colours inline; nothing here should fight it. */
+div[align="center"] h1 {
+  border-bottom: none;
+}
+
+/* The cover title is centred like the rest of the cover, and a line break
+   written into the title in document_settings.toml is honoured, so where a
+   long title turns is a decision rather than an accident. */
+.cover-title {
+  text-align: center;
+}
+
+/* The cover ends its own page. It used to be followed by an empty
+   page-break <div>, but that div has to be placed somewhere: with a client
+   logo on the cover, there was no room left for it, so it fell onto the
+   next page and broke after itself - leaving a blank page between the cover
+   and the document. Breaking after the cover itself cannot do that. */
+.cover {
+  page-break-after: always;
+  break-after: page;
+}
+
+/* Cover logos. Width is stated, height is left to follow the image's own
+   proportions: that is what guarantees neither is stretched or skewed. The
+   max-width keeps them inside the column if the margins are ever widened
+   past the logo's size, and because only the width is constrained, the
+   image still scales evenly when that happens. */
+.cover-logo img {
+  width: var(--cover-logo-width);
+  max-width: 100%;
+  height: auto;
+}
+
+.client-logo {
+  margin-top: 1.5em;
+}
+
+.published {
+  font-size: var(--published-size);
+  color: var(--published-colour);
+}
+
+.client-logo img {
+  width: calc(var(--cover-logo-width) * var(--client-logo-scale));
+  max-width: 50%;
+  height: auto;
+}
+
+/* ---- Contents page ----------------------------------------------------
+   One row per numbered section: number, title, a dotted leader that
+   stretches to fill the line, then the page number against the right
+   margin. The classes are all prefixed toc-, because markdown-pdf.css
+   gives a bare .page class "page-break-after: always" and a span called
+   "page" would put every row on a page of its own. */
+.toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc li {
+  display: flex;
+  align-items: baseline;
+  margin: var(--toc-row-space) 0;
+  font-size: var(--toc-size);
+}
+
+.toc a {
+  display: flex;
+  align-items: baseline;
+  color: inherit;
+  text-decoration: none;
+}
+
+.toc .toc-num {
+  min-width: var(--toc-number-width);
+}
+
+.toc .toc-dots {
+  flex: 1 1 auto;
+  margin: 0 0.5em;
+  border-bottom: var(--toc-leader);
+  transform: translateY(-0.25em);
+}
+
+.toc .toc-page {
+  font-variant-numeric: tabular-nums;
+}

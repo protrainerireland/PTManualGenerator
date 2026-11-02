@@ -1,0 +1,100 @@
+# Document settings: AI in Excel Using ChatGPT & Copilot
+# ======================================================
+#
+# Everything particular to this course - what it builds, what goes on the
+# covers, where its workbooks and images are. One of these sits in every
+# folder under courses/, and it is what makes that folder a course. Edit this
+# rather than the build script: nothing here is code, and it is read afresh
+# on every run.
+#
+# Shared with every other course, and so not here:
+#   tools/                 the renderer and the printer
+#   tools/styles/          paper size, margins, type, spacing, the footer
+#   cover_page.md          the cover layout, which this file fills in
+#   build_deliverables.py  the build itself
+#   validate_docs.py       the checks that apply to any course
+#
+# Paths below are relative to this file.
+
+# Where this course's workbooks and other hand-outs live, and what to call
+# the zip of them in deliverables/. Leave out `files` and nothing is zipped.
+files = "files"
+zip_name = "AiAndExcelData.zip"
+
+# Where the screenshots live. Markdown refers to them as images/... , so this
+# is only needed if they are kept somewhere other than images/.
+images = "images"
+
+# The title line on every cover, filling {{TITLE}} in cover_page.md, centred.
+#
+# Put \n wherever a long title should turn and it breaks there - otherwise it
+# wraps wherever it happens to run out of room, which is how this one used to
+# end a line on "Half". A multi-line string does the same thing if you prefer
+# to see the shape of it:
+#
+#     cover_title = """
+#     AI in Excel Using ChatGPT &amp; Copilot –
+#     Half Day"""
+#
+# The text is dropped into the cover's raw HTML, so write an ampersand as
+# &amp;. <br> works too, if you would rather write the break yourself.
+cover_title = "AI in Excel Using ChatGPT &amp; Copilot\nHalf Day"
+
+# The cover layout itself, relative to this file. Leave it out and the
+# documents are built with no cover page.
+cover_page = "cover_page.md"
+
+# Optional: the client's logo, shown under Professional Training's own on
+# every cover. A bare filename is looked for in images/; a value with a
+# slash in it is taken as a path from this folder. Comment the line out, or
+# set it to "", and the cover closes up as though the line had never been
+# there - no gap, nothing moves.
+#
+# It is drawn at a fixed share of the Professional Training logo's width
+# (--client-logo-scale in tools/styles/professional_training_styles.css,
+# currently 50%), with the height left to follow, so whatever the client
+# sends is never stretched or squashed.
+client_logo = "InstituteOfCharteredAccountantsLogo.png"
+
+# Optional: a web address at the left of the page-number footer, on every
+# page. Leave either line out, or set it to "", for a footer with nothing but
+# the page number.
+#
+# footer_link_text is what is printed; footer_link_url is where it goes when
+# clicked. Chrome cannot put a working link in a printed footer, so the build
+# prints the text and then lays a clickable area over it afterwards - which
+# means the two have to be set together to be of any use.
+footer_link_text = "www.professional.ie"
+footer_link_url = "https://www.professional.ie"
+
+
+# One block per document the build exports, in the order they are built.
+#
+#   name      what --only takes on the command line
+#   file      the Markdown source, relative to this file
+#   subtitle  fills {{SUBTITLE}} on that document's cover, naming which
+#             document it is. Optional: set it to "" and the line is left
+#             off the cover entirely rather than leaving a gap. \n breaks a
+#             line here too.
+#   output    what the PDF is called. Optional: it is named after the
+#             Markdown file unless you say otherwise, so the file you edit
+#             need not be the one participants receive.
+#
+# Adding a document here is all it takes to have it built, cover and all.
+# AI_in_Excel_Course_Notes.md, the superseded original, is deliberately
+# absent.
+
+[[documents]]
+name = "notes"
+file = "AI_in_Excel_Course_Notes_updated_October2026.md"
+subtitle = "Participant Reference Manual"
+
+[[documents]]
+name = "running-order"
+file = "AI_in_Excel_running_order_updated_October2026.md"
+subtitle = "Running Order"
+
+[[documents]]
+name = "trainer"
+file = "AI_in_Excel_Trainer_Manual_October2026.md"
+subtitle = "Trainer Manual"

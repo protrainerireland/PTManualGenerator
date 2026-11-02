@@ -1,0 +1,58 @@
+# Document settings: Claude Code For Business Automation
+# ======================================================
+#
+# Everything particular to this course - what it builds and what goes on the
+# covers. Edit this rather than the build script: nothing here is code, and
+# it is read afresh on every run.
+#
+# Shared with every other course, and so not here: the renderer and printer
+# in tools/, the look in tools/styles/professional_training_styles.css, the
+# cover layout in cover_page.md, and the build and validation scripts.
+#
+# Paths below are relative to this file.
+
+# The title line on every cover. It is short enough to sit on one line; put
+# \n in where it should turn if that ever changes, and write an ampersand
+# as &amp;.
+cover_title = "Claude Code For Business Automation"
+
+# The client's logo, under Professional Training's own. A bare filename is
+# looked for in images/. The build refuses a logo it cannot find, so the
+# line stays empty until the client sends one - drop the file into images/
+# and swap the two lines below.
+client_logo = "TIA Skillnet Logo Header.svg"
+# client_logo = "ClientLogo.png"
+
+# A clickable web address at the left of the page-number footer.
+footer_link_text = "www.professional.ie"
+footer_link_url = "https://www.professional.ie"
+
+# This course hands out no files, so there is no `files` folder and nothing
+# is zipped. To add hand-outs later, make a files/ folder beside this file
+# and set:
+#
+#   files = "files"
+#   zip_name = "ClaudeCodeAutomationFiles.zip"
+
+# One block per document the build exports, in the order they are built.
+#
+#   name      what --only takes on the command line
+#   file      the Markdown source, relative to this file
+#   subtitle  fills {{SUBTITLE}} on that document's cover
+#   output    what the PDF is called; optional, and named after the Markdown
+#             file when left out
+#
+# A trainer manual can be added later with a block of its own and nothing
+# else - see ai_in_excel_2026 for how one is written.
+
+[[documents]]
+name = "notes"
+file = "notes.md"
+subtitle = "Participant Reference Manual"
+output = "Claude Code For Business Automation - Participant Manual.pdf"
+
+[[documents]]
+name = "running-order"
+file = "running_order.md"
+subtitle = "Running Order"
+output = "Claude Code For Business Automation - Running Order.pdf"

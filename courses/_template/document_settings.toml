@@ -1,0 +1,60 @@
+# Document settings: <course name>
+# ================================
+#
+# A starting point for a new course. Copy this whole folder to courses/<your
+# course>, fill this file in, and put the Markdown in beside it. Folders whose
+# name begins with _ are skipped by the build, so this one is never built.
+#
+# Everything particular to a course lives in its own folder:
+#
+#   document_settings.toml   this file - what to build, what goes on the cover
+#   *.md                     the documents themselves
+#   images/                  screenshots, referred to as images/... in Markdown
+#   files/                   workbooks and hand-outs, zipped for participants
+#   source/                  transcripts, repo, slides - what the documents
+#                            are written from. The build never looks here
+#   validate_course.py       optional checks of your own (see the one in
+#                            ai_in_excel_2026 for a worked example)
+#   deliverables/            written by the build; nothing here is edited
+#
+# Shared with every other course, and so not here: the renderer and printer in
+# tools/, the look in tools/styles/professional_training_styles.css, the cover
+# layout in cover_page.md, and the build and validation scripts.
+#
+# Paths below are relative to this file.
+
+# The title on every cover of this course. \n breaks the line where you want
+# it; an ampersand is written &amp;.
+cover_title = "A New Course\nHalf Day"
+
+# Optional: the client's logo, under Professional Training's own. A bare
+# filename is looked for in images/. Leave it empty for no client logo.
+client_logo = ""
+
+# Optional: a clickable web address at the left of the page-number footer.
+footer_link_text = "www.professional.ie"
+footer_link_url = "https://www.professional.ie"
+
+# Optional: the folder of workbooks and hand-outs, and what to call the zip of
+# them. Leave `files` out and nothing is zipped.
+files = "files"
+zip_name = "CourseFiles.zip"
+
+# One block per document. `name` is what --only takes, `file` is the Markdown,
+# `subtitle` names the document on its cover ("" leaves the line off).
+# Put <!-- toc --> at the top of a document to give it a contents page.
+
+[[documents]]
+name = "handbook"
+file = "handbook.md"
+subtitle = "Delegate Handbook"
+
+# `output` is optional: the PDF is named after the Markdown file unless you
+# say otherwise, so the file you edit can be short while the file you hand
+# over is formal.
+#
+# [[documents]]
+# name = "trainer"
+# file = "trainer_manual.md"
+# subtitle = "Trainer Manual"
+# output = "A New Course - Trainer Manual.pdf"
